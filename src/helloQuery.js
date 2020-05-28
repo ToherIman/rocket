@@ -3,10 +3,13 @@ import { useQuery } from '@apollo/react-hooks';
 import { gql } from "apollo-boost";
 
 const HELLO = gql`
-query hello 
-  {
-    hello
-  }`;
+query user 
+  { users {
+    _id
+    name
+    email
+  }
+}`;
 
 
 function HelloQuery () {
@@ -14,11 +17,13 @@ function HelloQuery () {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
-
+  console.log('data', data)
   return (
-    <p>
-      {data.hello}
-    </p>
+    data.users.map((u, i) => 
+    <div key={i}>
+      {u._id}
+    </div>
+    )
   )
 }
 
